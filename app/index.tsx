@@ -1,9 +1,18 @@
 import { View, Text, StyleSheet, Image } from "react-native";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import LottieView from "lottie-react-native";
+import { useRouter } from "expo-router";
 
 const Page = () => {
   const animation = useRef(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    setTimeout(() => {
+      router.navigate("home");
+    }, 5000);
+  });
+
   return (
     <View style={styles.container}>
       <Image
