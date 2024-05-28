@@ -9,7 +9,12 @@ app.use(bodyParser.json());
 app.post("/search", (req, res) => {
   const requestData = req.body; // Récupérez les données du corps de la requête
   console.log("Données reçues :", requestData);
-  res.send("Données reçues");
+  res.send({
+    product: requestData.query,
+    price: 10,
+    currency: "EUR",
+    description: "A nice product",
+  });
 });
 
 app.listen(3000, () => {
