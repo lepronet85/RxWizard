@@ -7,10 +7,10 @@ import {
   ScrollView,
   ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { Link, useNavigation } from "expo-router";
 import axios from "axios";
 import { Medication } from "../types";
 
@@ -19,6 +19,8 @@ const Page = () => {
   const [searchResults, setSearchResults] = useState<Medication[]>([]);
   const [noResult, setNoResult] = useState<number>(1);
   const [loaded, setLoaded] = useState<boolean>(false);
+
+  const navigation = useNavigation();
 
   const handleSearch = () => {
     if (!searchQuery.trim()) return;
@@ -40,6 +42,14 @@ const Page = () => {
       });
   };
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("beforeRemove", (e) => {
+      e.preventDefault();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
   // 192.168.1.37
   return (
     <SafeAreaView style={styles.container}>
@@ -56,7 +66,7 @@ const Page = () => {
         {!loaded ? (
           <Text style={styles.searchBtnText}>Search</Text>
         ) : (
-          <ActivityIndicator size={24} color={"#fff"} />
+          <ActivityIndicator size={22} color={"#fff"} />
         )}
       </TouchableOpacity>
       <ScrollView style={styles.resultArea}>
