@@ -27,12 +27,12 @@ const Page = () => {
     <SafeAreaView style={styles.container}>
       <Text style={styles.textLogo}>RxWizard</Text>
       <ScrollView>
-        <View>
+        <View style={styles.medicationImageContainer}>
           <Image
             source={{
               uri: medication?.imageUrl,
-              width: 100,
-              height: 100,
+              width: 150,
+              height: 150,
             }}
           />
         </View>
@@ -64,6 +64,16 @@ const styles = StyleSheet.create({
   chatIcon: {
     fontSize: 60,
     color: "#fa745d",
+  },
+  medicationImageContainer: {
+    width: "80%",
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingBottom: 20,
+    borderBottomWidth: 2,
+    borderBottomColor: "#e1e1e1",
+    borderStyle: "dotted",
   },
 });
 
