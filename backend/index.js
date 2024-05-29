@@ -1,4 +1,9 @@
-const { seedMedications, getMedication } = require("./controllers");
+const {
+  seedMedications,
+  getMedication,
+  deleteMedications,
+  getMedicationWithId,
+} = require("./controllers");
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -19,7 +24,9 @@ app.get("/", (req, res) => {
   res.send("Hello world");
 });
 app.get("/seed", seedMedications);
+app.get("/delete", deleteMedications);
 app.post("/search", getMedication);
+app.get("/search/:id", getMedicationWithId);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

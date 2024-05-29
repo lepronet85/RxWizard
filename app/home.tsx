@@ -5,29 +5,25 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import axios from "axios";
-
-type Product = {
-  _id: string;
-  name: string;
-  description: string;
-  usage: string;
-  side_effects: string[];
-  interactions: string[];
-};
+import { Medication } from "../types";
 
 const Page = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [searchResults, setSearchResults] = useState<Product[]>([]);
+  const [searchResults, setSearchResults] = useState<Medication[]>([]);
   const [noResult, setNoResult] = useState<number>(1);
+  const [loaded, setLoaded] = useState<boolean>(false);
 
   const handleSearch = () => {
-    if (!searchQuery) return;
+    if (!searchQuery.trim()) return;
+
+    setLoaded(true);
 
     axios
       .post("http://192.168.1.37:3000/search", {
@@ -36,6 +32,7 @@ const Page = () => {
       .then((response) => {
         setNoResult(response.data.length);
         setSearchResults(response.data);
+        setLoaded(false);
         console.log(response.data);
       })
       .catch((error) => {
@@ -56,7 +53,11 @@ const Page = () => {
         <Ionicons name="search" style={styles.searchIcon} />
       </View>
       <TouchableOpacity style={styles.searchBtn} onPress={handleSearch}>
-        <Text style={styles.searchBtnText}>Search</Text>
+        {!loaded ? (
+          <Text style={styles.searchBtnText}>Search</Text>
+        ) : (
+          <ActivityIndicator size={24} color={"#fff"} />
+        )}
       </TouchableOpacity>
       <ScrollView style={styles.resultArea}>
         {noResult ? (

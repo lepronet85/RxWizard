@@ -3,6 +3,7 @@ const MedicationSchema = new mongoose.Schema({
   name: String,
   description: String,
   usage: String,
+  imageUrl: String,
   side_effects: [String],
   interactions: [String],
 });
