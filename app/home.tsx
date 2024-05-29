@@ -4,15 +4,46 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
+import axios from "axios";
+
+type Product = {
+  _id: string;
+  name: string;
+  description: string;
+  usage: string;
+  side_effects: string[];
+  interactions: string[];
+};
 
 const Page = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
+  const [noResult, setNoResult] = useState<number>(1);
 
+  const handleSearch = () => {
+    if (!searchQuery) return;
+
+    axios
+      .post("http://192.168.1.37:3000/search", {
+        query: searchQuery,
+      })
+      .then((response) => {
+        setNoResult(response.data.length);
+        setSearchResults(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  // 192.168.1.37
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.textLogo}>RxWizard</Text>
@@ -24,15 +55,25 @@ const Page = () => {
         />
         <Ionicons name="search" style={styles.searchIcon} />
       </View>
-      <Link
-        href={`/product-detail?query=${searchQuery}`}
-        asChild
-        style={styles.searchBtn}
-      >
-        <TouchableOpacity>
-          <Text style={styles.searchBtnText}>Search</Text>
-        </TouchableOpacity>
-      </Link>
+      <TouchableOpacity style={styles.searchBtn} onPress={handleSearch}>
+        <Text style={styles.searchBtnText}>Search</Text>
+      </TouchableOpacity>
+      <ScrollView style={styles.resultArea}>
+        {noResult ? (
+          searchResults.map((result) => (
+            <View key={result?._id}>
+              <Link
+                href={`/product-detail?id=${result?._id}`}
+                style={styles.resultLink}
+              >
+                <Text style={styles.reultLinkText}>{result?.name}</Text>
+              </Link>
+            </View>
+          ))
+        ) : (
+          <Text>Aucun résultat</Text>
+        )}
+      </ScrollView>
       <Link href={"/chat"} style={styles.chatIconContainer}>
         <Ionicons name="chatbox-ellipses" style={styles.chatIcon} />
       </Link>
@@ -95,6 +136,18 @@ const styles = StyleSheet.create({
   chatIcon: {
     fontSize: 60,
     color: "#fa745d",
+  },
+  resultArea: {
+    width: "80%",
+    alignSelf: "center",
+    marginTop: 20,
+  },
+  resultLink: {
+    marginVertical: 4,
+  },
+  reultLinkText: {
+    color: "#1a0dab",
+    textDecorationLine: "underline",
   },
 });
 
