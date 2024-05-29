@@ -4,6 +4,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { Link, useLocalSearchParams } from "expo-router";
 import axios from "axios";
+import { Skeleton } from "@rneui/themed";
+import { LinearGradient } from "expo-linear-gradient";
 
 import { Medication } from "../types";
 
@@ -27,44 +29,128 @@ const Page = () => {
     <SafeAreaView style={styles.container}>
       <Text style={styles.textLogo}>RxWizard</Text>
       <View style={styles.medicationImageContainer}>
-        <Image
-          source={{
-            uri: medication?.imageUrl,
-            width: 150,
-            height: 150,
-          }}
-        />
+        {medication?.imageUrl ? (
+          <Image
+            source={{
+              uri: medication?.imageUrl,
+              width: 150,
+              height: 150,
+            }}
+          />
+        ) : (
+          <Skeleton
+            LinearGradientComponent={LinearGradient}
+            animation="wave"
+            width={150}
+            height={150}
+          />
+        )}
       </View>
       <ScrollView style={styles.medicationDetailContainer}>
         <View>
-          <Text>
-            <Text style={{ fontWeight: "bold" }}>Name: </Text>
-            {medication?.name}
-          </Text>
+          {medication?.name ? (
+            <Text>
+              <Text style={{ fontWeight: "bold" }}>Name: </Text>
+              {medication?.name}
+            </Text>
+          ) : (
+            <Skeleton
+              LinearGradientComponent={LinearGradient}
+              animation="wave"
+              style={{ width: "100%" }}
+              height={20}
+            />
+          )}
         </View>
         <View style={styles.subdetail}>
-          <Text>
-            <Text style={{ fontWeight: "bold" }}>Description: </Text>
-            {medication?.description}
-          </Text>
-        </View>
-        <View style={styles.subdetail}>
-          <Text>
-            <Text style={{ fontWeight: "bold" }}>Usage: </Text>
-            {medication?.usage}
-          </Text>
-        </View>
-        <View style={styles.subdetail}>
-          <Text style={{ fontWeight: "bold" }}>Side Effects: </Text>
-          {medication?.side_effects.map((effect, index) => (
-            <View
-              key={index}
-              style={{ marginLeft: 20, flexDirection: "row", gap: 10 }}
-            >
-              <Text style={{ fontWeight: "bold" }}>-</Text>
-              <Text>{effect} </Text>
+          {medication?.description ? (
+            <Text>
+              <Text style={{ fontWeight: "bold" }}>Description: </Text>
+              {medication?.description}
+            </Text>
+          ) : (
+            <View>
+              <Skeleton
+                LinearGradientComponent={LinearGradient}
+                animation="wave"
+                style={{ width: "100%" }}
+                height={10}
+              />
+              <Skeleton
+                LinearGradientComponent={LinearGradient}
+                animation="wave"
+                style={{ width: "70%", marginVertical: 5 }}
+                height={10}
+              />
+              <Skeleton
+                LinearGradientComponent={LinearGradient}
+                animation="wave"
+                style={{ width: "30%" }}
+                height={10}
+              />
             </View>
-          ))}
+          )}
+        </View>
+        <View style={styles.subdetail}>
+          {medication?.usage ? (
+            <Text>
+              <Text style={{ fontWeight: "bold" }}>Usage: </Text>
+              {medication?.usage}
+            </Text>
+          ) : (
+            <Skeleton
+              LinearGradientComponent={LinearGradient}
+              animation="wave"
+              style={{ width: "40%" }}
+              height={10}
+            />
+          )}
+        </View>
+        <View style={styles.subdetail}>
+          {medication?.side_effects ? (
+            <>
+              <Text style={{ fontWeight: "bold" }}>Side Effects: </Text>
+              {medication?.side_effects.map((effect, index) => (
+                <View
+                  key={index}
+                  style={{ marginLeft: 20, flexDirection: "row", gap: 10 }}
+                >
+                  <Text style={{ fontWeight: "bold" }}>-</Text>
+                  <Text>{effect} </Text>
+                </View>
+              ))}
+            </>
+          ) : (
+            <Skeleton
+              LinearGradientComponent={LinearGradient}
+              animation="wave"
+              style={{ width: "20%" }}
+              height={10}
+            />
+          )}
+        </View>
+        <View style={styles.subdetail}>
+          {medication?.interactions ? (
+            <>
+              <Text style={{ fontWeight: "bold" }}>Interactions: </Text>
+              {medication?.interactions.map((interaction, index) => (
+                <View
+                  key={index}
+                  style={{ marginLeft: 20, flexDirection: "row", gap: 10 }}
+                >
+                  <Text style={{ fontWeight: "bold" }}>-</Text>
+                  <Text>{interaction} </Text>
+                </View>
+              ))}
+            </>
+          ) : (
+            <Skeleton
+              LinearGradientComponent={LinearGradient}
+              animation="wave"
+              style={{ width: "20%" }}
+              height={10}
+            />
+          )}
         </View>
       </ScrollView>
       <Link href={"/chat"} style={styles.chatIconContainer}>

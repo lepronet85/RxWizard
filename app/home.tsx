@@ -75,9 +75,9 @@ const Page = () => {
           <Text style={{ alignSelf: "center" }}>Aucun résultat</Text>
         )}
       </ScrollView>
-      <Link href={"/chat"} style={styles.chatIconContainer}>
+      {/* <Link href={"/chat"} style={styles.chatIconContainer}>
         <Ionicons name="chatbox-ellipses" style={styles.chatIcon} />
-      </Link>
+      </Link> */}
     </SafeAreaView>
   );
 };
@@ -129,15 +129,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-  chatIconContainer: {
-    position: "absolute",
-    bottom: 20,
-    right: 20,
-  },
-  chatIcon: {
-    fontSize: 60,
-    color: "#fa745d",
-  },
+  // chatIconContainer: {
+  //   position: "absolute",
+  //   bottom: 20,
+  //   right: 20,
+  // },
+  // chatIcon: {
+  //   fontSize: 60,
+  //   color: "#fa745d",
+  // },
   resultArea: {
     width: "80%",
     alignSelf: "center",
