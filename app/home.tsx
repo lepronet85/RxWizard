@@ -72,7 +72,7 @@ const Page = () => {
             </View>
           ))
         ) : (
-          <Text>Aucun résultat</Text>
+          <Text style={{ alignSelf: "center" }}>Aucun résultat</Text>
         )}
       </ScrollView>
       <Link href={"/chat"} style={styles.chatIconContainer}>

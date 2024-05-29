@@ -26,15 +26,45 @@ const Page = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.textLogo}>RxWizard</Text>
-      <ScrollView>
-        <View style={styles.medicationImageContainer}>
-          <Image
-            source={{
-              uri: medication?.imageUrl,
-              width: 150,
-              height: 150,
-            }}
-          />
+      <View style={styles.medicationImageContainer}>
+        <Image
+          source={{
+            uri: medication?.imageUrl,
+            width: 150,
+            height: 150,
+          }}
+        />
+      </View>
+      <ScrollView style={styles.medicationDetailContainer}>
+        <View>
+          <Text>
+            <Text style={{ fontWeight: "bold" }}>Name: </Text>
+            {medication?.name}
+          </Text>
+        </View>
+        <View style={styles.subdetail}>
+          <Text>
+            <Text style={{ fontWeight: "bold" }}>Description: </Text>
+            {medication?.description}
+          </Text>
+        </View>
+        <View style={styles.subdetail}>
+          <Text>
+            <Text style={{ fontWeight: "bold" }}>Usage: </Text>
+            {medication?.usage}
+          </Text>
+        </View>
+        <View style={styles.subdetail}>
+          <Text style={{ fontWeight: "bold" }}>Side Effects: </Text>
+          {medication?.side_effects.map((effect, index) => (
+            <View
+              key={index}
+              style={{ marginLeft: 20, flexDirection: "row", gap: 10 }}
+            >
+              <Text style={{ fontWeight: "bold" }}>-</Text>
+              <Text>{effect} </Text>
+            </View>
+          ))}
         </View>
       </ScrollView>
       <Link href={"/chat"} style={styles.chatIconContainer}>
@@ -74,6 +104,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: "#e1e1e1",
     borderStyle: "dotted",
+  },
+  medicationDetailContainer: {
+    width: "80%",
+    alignSelf: "center",
+    paddingVertical: 20,
+  },
+  subdetail: {
+    marginTop: 10,
   },
 });
 
