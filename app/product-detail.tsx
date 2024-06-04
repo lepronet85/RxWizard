@@ -153,7 +153,7 @@ const Page = () => {
           )}
         </View>
       </ScrollView>
-      <Link href={"/chat"} style={styles.chatIconContainer}>
+      <Link href={`/chat?id=${id}`} style={styles.chatIconContainer}>
         <Ionicons name="chatbox-ellipses" style={styles.chatIcon} />
       </Link>
     </SafeAreaView>

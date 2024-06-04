@@ -27,7 +27,7 @@ const Page = () => {
           width: 200,
           height: 100,
         }}
-        source={require("../assets/animation/loading.json")}
+        source={require("../assets/animations/loading.json")}
       />
     </View>
   );

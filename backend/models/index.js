@@ -8,8 +8,15 @@ const MedicationSchema = new mongoose.Schema({
   interactions: [String],
 });
 
+const NoticeSchema = new mongoose.Schema({
+  body: String,
+  medication_id: String,
+});
+
 const Medicaion = mongoose.model("Medicaion", MedicationSchema);
+const Notice = mongoose.model("Notice", NoticeSchema);
 
 module.exports = {
   Medicaion,
+  Notice,
 };

@@ -13,6 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Link, useNavigation } from "expo-router";
 import axios from "axios";
 import { Medication } from "../types";
+import { StatusBar } from "expo-status-bar";
 
 const Page = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -38,6 +39,7 @@ const Page = () => {
         console.log(response.data);
       })
       .catch((error) => {
+        setLoaded(false);
         console.log(error.message);
       });
   };
@@ -50,7 +52,6 @@ const Page = () => {
     return unsubscribe;
   }, [navigation]);
 
-  // 192.168.1.37
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.textLogo}>RxWizard</Text>
@@ -85,9 +86,7 @@ const Page = () => {
           <Text style={{ alignSelf: "center" }}>Aucun résultat</Text>
         )}
       </ScrollView>
-      {/* <Link href={"/chat"} style={styles.chatIconContainer}>
-        <Ionicons name="chatbox-ellipses" style={styles.chatIcon} />
-      </Link> */}
+      <StatusBar backgroundColor="#fa745d" />
     </SafeAreaView>
   );
 };
@@ -139,15 +138,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-  // chatIconContainer: {
-  //   position: "absolute",
-  //   bottom: 20,
-  //   right: 20,
-  // },
-  // chatIcon: {
-  //   fontSize: 60,
-  //   color: "#fa745d",
-  // },
   resultArea: {
     width: "80%",
     alignSelf: "center",

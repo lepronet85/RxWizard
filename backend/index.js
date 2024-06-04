@@ -2,7 +2,8 @@ const {
   seedMedications,
   getMedication,
   deleteMedications,
-  getMedicationWithId,
+  getMedicationById,
+  chat,
 } = require("./controllers");
 
 const express = require("express");
@@ -26,7 +27,9 @@ app.get("/", (req, res) => {
 app.get("/seed", seedMedications);
 app.get("/delete", deleteMedications);
 app.post("/search", getMedication);
-app.get("/search/:id", getMedicationWithId);
+app.get("/search/:id", getMedicationById);
+
+app.post("/chat", chat);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
