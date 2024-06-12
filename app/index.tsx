@@ -3,10 +3,13 @@ import React, { useEffect, useRef } from "react";
 import LottieView from "lottie-react-native";
 import { useRouter } from "expo-router";
 
+// Page component for displaying onboarding animation and navigating to home screen
+
 const Page = () => {
   const animation = useRef(null);
   const router = useRouter();
 
+  // Navigate to the home screen after a delay
   useEffect(() => {
     setTimeout(() => {
       router.navigate("home");
@@ -15,10 +18,12 @@ const Page = () => {
 
   return (
     <View style={styles.container}>
+      {/* Onboarding image */}
       <Image
         source={require("../assets/images/onboarding.jpg")}
         style={styles.img}
       />
+      {/* Loading animation */}
       <LottieView
         autoPlay
         loop

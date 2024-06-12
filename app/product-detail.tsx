@@ -9,10 +9,12 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { Medication } from "../types";
 
+// Page component to display medication details
 const Page = () => {
   const [medication, setMedication] = useState<Medication>();
   const { id } = useLocalSearchParams();
 
+  // Fetch medication details when the component mounts
   useEffect(() => {
     axios
       .get(`http://192.168.1.37:3000/search/${id}`)
