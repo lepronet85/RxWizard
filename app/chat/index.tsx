@@ -5,7 +5,6 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  ActivityIndicator,
   ScrollView,
   Keyboard,
 } from "react-native";
@@ -17,6 +16,7 @@ import LottieView from "lottie-react-native";
 import { Medication } from "@/types";
 import { Image } from "react-native";
 
+// Main component
 const Page = () => {
   const [text, setText] = useState<string>("");
   const [height, setHeight] = useState<number>(40);
@@ -25,10 +25,11 @@ const Page = () => {
   const [medication, setMedication] = useState<Medication>();
   const [animatedText, setAnimatedText] = useState<string>("");
 
-  const { id } = useLocalSearchParams();
+  const { id } = useLocalSearchParams(); // Fetch route params
 
-  const animation = useRef<LottieView>(null);
+  const animation = useRef<LottieView>(null); // Reference for Lottie animation
 
+  // Adjust text input height based on content size
   const handleContentSizeChange = (event: {
     nativeEvent: { contentSize: { height: number } };
   }) => {
@@ -36,6 +37,7 @@ const Page = () => {
     setHeight(currentHeight <= 206 ? currentHeight : 206);
   };
 
+  // Handle sending messages
   const handleSendMessage = () => {
     if (!text.trim()) return;
 
@@ -78,10 +80,12 @@ const Page = () => {
       });
   };
 
-  useEffect(() => {
-    console.log(messages);
-  }, [messages]);
+  // Log messages to console
+  // useEffect(() => {
+  //   console.log(messages);
+  // }, [messages]);
 
+  // Fetch medication data and display animated welcome message
   useEffect(() => {
     axios
       .get(`http://192.168.1.37:3000/search/${id}`)

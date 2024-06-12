@@ -4,7 +4,6 @@ import Svg, { Path } from "react-native-svg";
 import { Touchable, TouchableOpacity } from "react-native";
 
 // Main layout component
-
 export default function Layout() {
   return (
     <>
