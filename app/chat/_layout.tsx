@@ -3,19 +3,26 @@ import { Drawer } from "expo-router/drawer";
 import Svg, { Path } from "react-native-svg";
 import { Touchable, TouchableOpacity } from "react-native";
 
+// Main layout component
+
 export default function Layout() {
   return (
     <>
+      {/* Root view for gesture handling */}
       <GestureHandlerRootView style={{ flex: 1 }}>
+        {/* Drawer component for side navigation */}
         <Drawer
           screenOptions={({ navigation }) => ({
+            // Header configuration for each screen in the drawer
             headerLeft: ({}) => (
+              // Button to open the drawer
               <TouchableOpacity
                 style={{
                   marginLeft: 20,
                 }}
                 onPress={() => navigation.openDrawer()}
               >
+                {/* Hamburger menu icon */}
                 <Svg width="26" height="26" viewBox="0 0 24 24">
                   <Path
                     fill="#000"
@@ -26,6 +33,7 @@ export default function Layout() {
             ),
           })}
         >
+          {/* Drawer screen configuration */}
           <Drawer.Screen
             name="index"
             options={{
