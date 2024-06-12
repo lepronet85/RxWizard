@@ -15,6 +15,7 @@ import axios from "axios";
 import { Medication } from "../types";
 import { StatusBar } from "expo-status-bar";
 
+// Page component for searching medications
 const Page = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchResults, setSearchResults] = useState<Medication[]>([]);
@@ -23,6 +24,7 @@ const Page = () => {
 
   const navigation = useNavigation();
 
+  // Handle the search functionality
   const handleSearch = () => {
     if (!searchQuery.trim()) return;
 
@@ -44,6 +46,7 @@ const Page = () => {
       });
   };
 
+  // Prevent navigation from the current page
   useEffect(() => {
     const unsubscribe = navigation.addListener("beforeRemove", (e) => {
       e.preventDefault();
